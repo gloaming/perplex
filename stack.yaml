@@ -1,0 +1,21 @@
+flags: {}
+
+packages:
+- .
+
+extra-deps:
+- cabal-macosx-0.2.4.1
+- Cabal-2.0.1.1
+- git: https://github.com/gloaming/reactive-banana
+  commit: 9d5d3d566dcd6e5536f1cc45c94f36ab0a646a46
+  subdirs:
+  - reactive-banana-wx
+- git: https://github.com/gloaming/wxHaskell
+  commit: 38c6e367487bca72e35e9c0a8abc33f46f22af60
+  subdirs:
+  - wx
+  - wxc
+  - wxcore
+  - wxdirect
+
+resolver: lts-9.2

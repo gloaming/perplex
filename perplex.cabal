@@ -1,0 +1,60 @@
+name:                perplex
+version:             0.1.0.0
+homepage:            https://github.com/gloaming/perplex#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Craig Hall
+maintainer:          ch9871@gmail.com
+copyright:           (c) 2017 Craig Hall
+build-type:          Custom
+extra-source-files:  README.md
+cabal-version:       >=1.10
+data-files:          words.txt
+
+custom-setup
+  setup-depends:
+    cabal-macosx >= 0.1 && < 0.3,
+    base >= 4.2 && < 5,
+    Cabal
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Trie
+                     , Perplex
+  ghc-options:         -W
+  build-depends:       base >= 4.7 && < 5
+                     , containers
+                     , random
+                     , deepseq
+                     , mtl
+  default-language:    Haskell2010
+
+executable perplex
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -W -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , perplex
+                     , reactive-banana
+                     , reactive-banana-wx
+                     , wx
+                     , wxcore
+                     , deepseq
+                     , random
+                     , transformers
+  default-language:    Haskell2010
+
+executable perplex-cli
+  hs-source-dirs:      app
+  main-is:             CLI.hs
+  ghc-options:         -W -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , perplex
+                     , deepseq
+                     , random
+                     , transformers
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/gloaming/perplex
