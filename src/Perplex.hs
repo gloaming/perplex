@@ -47,12 +47,14 @@ freqs :: Ord a => [a] -> Map a Int
 freqs = foldl (flip $ M.alter (Just . maybe 1 (+1))) M.empty
 
 pick :: (MonadState StdGen m, Monad m, Functor m) => Map Char Int -> m Char
-pick t = go (M.toList t') <$> state (randomR (0, total))
+pick t
+  | M.null t  = error "pick: letter frequency table is empty"
+  | otherwise = go (M.toList t') <$> state (randomR (0, total - 1))
   where
     t' = M.filterWithKey (\k _ -> within 'a' 'z' k) t
     total = M.foldl' (+) 0 t'
 
-    go [] _ = error "Bad total in pick"
+    go [] _ = error "pick: random draw exceeds letter frequency total"
     go ((x,m) : xs) n
       | n < m = x
       | otherwise = go xs (n-m)
