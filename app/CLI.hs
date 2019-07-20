@@ -8,6 +8,7 @@ import Control.Monad.Trans.State
 import Data.Coerce
 import Data.Maybe
 import System.IO
+import System.IO.Error
 import System.Random
 import Unsafe.Coerce
 
@@ -44,7 +45,7 @@ main = do
         putStrLn ""
         loop n' g'
 
-  getStdGen >>= loop 4
+  (getStdGen >>= loop 4) `catchIOError` (\e -> if isEOFError e then return () else ioError e)
 
 read' :: Read a => String -> Maybe a
 read' s = case reads s of
