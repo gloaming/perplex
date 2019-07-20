@@ -19,3 +19,6 @@ extra-deps:
   - wxdirect
 
 resolver: lts-9.2
+
+nix:
+  packages: [ mesa.dev wxGTK30 xorg.libX11.dev ]
