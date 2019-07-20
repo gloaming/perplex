@@ -5,20 +5,20 @@ packages:
 
 extra-deps:
 - cabal-macosx-0.2.4.1
-- Cabal-2.0.1.1
+- reactive-banana-1.2.1.0
 - git: https://github.com/gloaming/reactive-banana
-  commit: 9d5d3d566dcd6e5536f1cc45c94f36ab0a646a46
+  commit: e8e13db3f7901c07d02d7f0e609a65e951e6ae97
   subdirs:
   - reactive-banana-wx
 - git: https://github.com/gloaming/wxHaskell
-  commit: 38c6e367487bca72e35e9c0a8abc33f46f22af60
+  commit: aa0163d37883a522eaf0580bfd84f60b34bfeaab
   subdirs:
   - wx
   - wxc
   - wxcore
   - wxdirect
 
-resolver: lts-9.2
+resolver: lts-13.29
 
 nix:
   packages: [ mesa.dev wxGTK30 xorg.libX11.dev ]

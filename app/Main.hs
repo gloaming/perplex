@@ -12,7 +12,6 @@ import Control.Monad.Trans.State
 import Data.Char
 import Data.Coerce
 import Data.Maybe
-import Data.Monoid
 import System.Random
 import Text.Printf
 import Unsafe.Coerce
@@ -273,10 +272,6 @@ reactB b f = do
 
 reactB_ :: Behavior a -> IO b -> MomentIO ()
 reactB_ b a = reactB b (const a)
-
-instance Monoid a => Monoid (Event a) where
-  mempty = never
-  mappend = unionWith mappend
 
 forkIO_ :: IO () -> IO ()
 forkIO_ = void . forkIO
