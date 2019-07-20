@@ -32,6 +32,7 @@ library
 executable perplex
   hs-source-dirs:      app
   main-is:             Main.hs
+  other-modules:       Paths_perplex
   ghc-options:         -W -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , perplex
@@ -47,6 +48,7 @@ executable perplex
 executable perplex-cli
   hs-source-dirs:      app
   main-is:             CLI.hs
+  other-modules:       Paths_perplex
   ghc-options:         -W -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
                      , perplex
