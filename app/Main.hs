@@ -2,6 +2,7 @@
 {-# LANGUAGE RecursiveDo #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeApplications #-}
+
 module Main where
 
 import Control.Concurrent
@@ -79,7 +80,7 @@ main = start $ do
         -- Moreover, the textbox has a lot of space at the top because it must make space
         -- for all possible letters - presumably, capitals with accents.
         -- We don't want that so we fudge it away. TODO: Try GetTextExtent?
-        letter <- staticText backing [ fontWeight := WeightBold , fontSize := 48 ]
+        letter <- staticText backing [ fontWeight := WeightBold, fontSize := 48 ]
         let fudgeAlign = marginBottom . marginWidth 9
 
         windowSetLayout backing (fudgeAlign . floatCentre $ widget letter)
