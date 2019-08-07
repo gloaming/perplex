@@ -57,8 +57,11 @@ main = start $ do
 
   splitter <- splitterWindow win [ style :~ (.+. wxSP_3DSASH) ]
 
+  topHalf <- panel splitter []
+  bottomHalf <- panel splitter []
+
   -- TODO: Make board size dynamic
-  board <- panel splitter [ bgcolor := rgb @Int 0xFF 0xA9 0x1F ]
+  board <- panel topHalf [ bgcolor := rgb @Int 0xFF 0xA9 0x1F ]
   let tile = do
         backing <- panel board [ bgcolor := white ]
 
@@ -85,9 +88,6 @@ main = start $ do
 
         windowSetLayout backing (fudgeAlign . floatCentre $ widget letter)
         return (letter, void $ windowLayout backing, fill . widget $ backing)
-
-  topHalf <- panel splitter []
-  bottomHalf <- panel splitter []
 
   inputWord <- staticText bottomHalf [ fontSize := 20, text := "-", color := rgb @Int 0x33 0x33 0x33 ]
   let fixInputAlign = void $ windowLayout bottomHalf
