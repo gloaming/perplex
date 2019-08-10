@@ -13,6 +13,7 @@ import Control.Monad.Trans.State
 import Data.Char
 import Data.Coerce
 import Data.Maybe
+import qualified System.Info
 import System.Random
 import Text.Printf
 import Unsafe.Coerce
@@ -178,7 +179,8 @@ main = start $ do
         [] -> sizerClear wordList True
         (w:_) -> do
           putStrLn ("Add word! " ++ w)
-          w' <- staticText wordListPane [ text := w, fontSize := 14 ]
+          let spacer = if "darwin" == System.Info.os then "" else " "
+          w' <- staticText wordListPane [ text := w ++ spacer, fontSize := 14 ]
           -- FIXME: wxWrapSizer seems to be broken; I can't get it to
           -- minsize properly, no matter what. If there are too
           -- many words, they will get clipped by the window.
