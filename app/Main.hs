@@ -50,11 +50,12 @@ main = start $ do
   topLevelFrame <- frame [ style :~ (.+. wxWANTS_CHARS) ]
   win <- panel topLevelFrame [ style :~ (.+. wxWANTS_CHARS) ]
 
-  fileMenu <- menuPane [ text := "&File" ]
-  mclose <- menuItem fileMenu [ text := "&Close\tCtrl+W" ]
-  set topLevelFrame [ menuBar          := [fileMenu]
-                    , on (menu mclose) := void $ windowClose topLevelFrame False
-                    ]
+  when ("darwin" == System.Info.os) $ do
+    fileMenu <- menuPane [ text := "&File" ]
+    mclose <- menuItem fileMenu [ text := "&Close\tCtrl+W" ]
+    set topLevelFrame [ menuBar          := [fileMenu]
+                      , on (menu mclose) := void $ windowClose topLevelFrame False
+                      ]
 
   splitter <- splitterWindow win [ style :~ (.+. wxSP_3DSASH) ]
 

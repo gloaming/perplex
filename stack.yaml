@@ -9,7 +9,7 @@ extra-deps:
   subdirs:
   - reactive-banana-wx
 - git: https://github.com/gloaming/wxHaskell
-  commit: aa0163d37883a522eaf0580bfd84f60b34bfeaab
+  commit: dd893e8e4456f7bac9260774823050ff4b136119
   subdirs:
   - wx
   - wxc
