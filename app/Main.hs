@@ -96,8 +96,11 @@ main = start $ do
 
   statsLinePane <- panel bottomHalf []
   statsLine <- staticText statsLinePane []
-  wordListPane <- panel bottomHalf []
+  wordListPane <- scrolledWindow bottomHalf []
   wordList <- wrapSizerCreate wxHORIZONTAL wxWRAPSIZER_DEFAULT_FLAGS
+
+  set wordListPane [ on resize := windowSetVirtualSize wordListPane =<< windowGetSize wordListPane ]
+  scrolledWindowSetScrollRate wordListPane 0 5
 
   let tileSz = 80
       boardSize = 5
@@ -182,13 +185,7 @@ main = start $ do
           putStrLn ("Add word! " ++ w)
           let spacer = if "darwin" == System.Info.os then "" else " "
           w' <- staticText wordListPane [ text := w ++ spacer, fontSize := 14 ]
-          -- FIXME: wxWrapSizer seems to be broken; I can't get it to
-          -- minsize properly, no matter what. If there are too
-          -- many words, they will get clipped by the window.
           sizerAddWindow wordList w' 1 0 0 ptrNull
-
-          windowLayout wordListPane
-          return ()
 
     sink inputWord [ text :== bInputWord ]
     reactB_ bInputWord fixInputAlign
