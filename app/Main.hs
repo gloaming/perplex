@@ -86,10 +86,10 @@ main = start $ do
         -- for all possible letters - presumably, capitals with accents.
         -- We don't want that so we fudge it away. TODO: Try GetTextExtent?
         letter <- staticText backing [ fontWeight := WeightBold, fontSize := 48 ]
-        let fudgeAlign = marginBottom . marginWidth 9
+        let fudgeAlign = marginBottom . marginWidth (if "darwin" == System.Info.os then 9 else 4)
 
         windowSetLayout backing (fudgeAlign . floatCentre $ widget letter)
-        return (letter, void $ windowLayout backing, fill . widget $ backing)
+        return (letter, void $ windowLayout backing, fill . minsize (sz 80 80) . widget $ backing)
 
   inputWord <- staticText bottomHalf [ fontSize := 20, text := "-", color := rgb @Int 0x33 0x33 0x33 ]
   let fixInputAlign = void $ windowLayout bottomHalf
@@ -102,9 +102,7 @@ main = start $ do
   set wordListPane [ on resize := windowSetVirtualSize wordListPane =<< windowGetSize wordListPane ]
   scrolledWindowSetScrollRate wordListPane 0 5
 
-  let tileSz = 80
-      boardSize = 5
-      boardSz = boardSize * tileSz
+  let boardSize = 5
 
   tiles <- replicateM boardSize (replicateM boardSize tile)
 
@@ -112,7 +110,7 @@ main = start $ do
     (hsplit splitter 0 0
 
       (fill . container topHalf . margin 16 . floatCentre . shaped $
-        container board (margin 2 . minsize (sz boardSz boardSz) $
+        container board (margin 2 $
           grid 2 2 ((map . map) (\(_,_,x) -> x) tiles)))
 
       (fill . container bottomHalf $ column 0
